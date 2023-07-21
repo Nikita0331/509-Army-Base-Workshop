@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('{% static "bg.jpg" %}');
+      background-size: cover;
+    }
+    
+    nav {
+        background-color: black;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    nav h1, nav h2 {
+        margin: 0;
+    }
+    
+    .logo {
+        height: 50px;
+        margin-right: 20px;
+    }
+    
+    .title-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .text-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .button-container {
+        display: flex;
+    }
+    
+    button {
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+    
+    .form-container {
+      background-color:white; 
+      max-width:250px; 
+      margin:auto; 
+      padding:20px; 
+      border-radius:10px
+    }
+    
+    .form-container h2 {
+      text-align:center
+    }
+    
+    form {
+      display:flex; 
+      flex-direction:column; 
+      align-items:center
+    }
+    
+    form input[type="text"], form input[type="password"], form select {
+      width:100%
+    }
+    
+    form input[type="submit"] {
+      margin-top:20px
+    }
+    
+    main {
+      margin-top:20px
+    }
+  </style>
+</head>
+<body>
+  
+<nav>
+   <div class="title-container">
+       <img src="{% static "download.png" %}" alt="Army Logo" class="logo">
+       <div class="text-container">
+           <h2>509 Army Base Workshop</h2>
+           <h1>Letter Management System</h1>
+       </div>
+   </div>
+   <div class="button-container">
+    <button onclick="location.href='{% url 'index' %}'">Home</button>
+  </div>
+</nav>
+
+<main>
+
+<div class="form-container">
+  <h2>New User</h2>
+<form id="registrationForm" action="/login" method="post">
+
+<label for="userId">User ID:</label>
+<input type="text" id="userId" name="userId" required>
+
+<label for="password">Password:</label>
+<input type="password" id="password" name="password" required>
+
+<label for="confirmPassword">Confirm Password:</label>
+<input type="password" id="confirmPassword" name="confirmPassword" required>
+
+<label for="unit">Unit:</label>
+<select id="unit" name="unit" required>
+<option value="None">--Select--</option>
+<option value="PLG">Planning/PLG</option>
+<option value="Progress">Progress</option>
+<option value="Manufacture">Manufacture</option>
+<option value="Stats">Stats</option>
+</select>
+
+<input type="submit" value="Register">
+
+</form>
+
+</div>
+
+</main>
+
+</body>
+</html>

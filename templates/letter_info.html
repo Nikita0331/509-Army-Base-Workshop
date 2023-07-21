@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block main %}
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<div class="card shadow m-3">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange">Add Letter</h5>
+
+        <div class="container-fluid" style="background-color: bisque; padding-bottom: 1px;">
+            <form method="post" name="component_submit" >
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label >Letter Number:</label>
+                            <input type="text" name="srNo" class="form-control" placeholder="Enter Letter Number" value="{{Component.srNo}}" required>
+                        </div>
+                    </div>
+    
+                    
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Signing Date:</label>
+                    
+                            <input type="date" name="signdate" class="form-control" placeholder="Enter Signing date" value="{{Component.signdate}}" required >
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Receiving date:</label>
+                            <input type="date" name="receivedate" class="form-control" placeholder="Enter Receiving date" value="{{Component.receivedate}}" required >
+    
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Received from:</label>
+                            <input type="text" name="receive_from" class="form-control"  value="{{Component.nmc}}" required >
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Subject:</label>
+                            <input type="text" name="Subject" class="form-control" placeholder="Enter the Subject" value="{{Component.nmc}}" required >
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>MD'S Remark:</label>
+                            <input type="text" name="MD" class="form-control" placeholder="Enter the MD'S Remark" value="{{Component.nmc}}" required >
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>GM(W)'S Remark:</label>
+                            <input type="text" name="GM" class="form-control" placeholder="Enter the GM(W)'S Remark" value="{{Component.nmc}}" required >
+                    
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Deputy GM Remark:</label>
+                            <input type="text" name="Deputy_GM" class="form-control" placeholder="Enter the Dept. GM Remark" value="{{Component.nmc}}" required >
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>FM'S Remark:</label>
+                            <input type="text" name="Deputy_GM" class="form-control" placeholder="Enter the FM'S Remark" value="{{Component.nmc}}" required >
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Section Assigned To:</label>
+                            <select name="UNIT" class="form-control">
+                                <option value="None">--Select--</option>
+                                <option value="PLG">Planning/PLG</option>
+                                <option value="Progress">Progress</option>
+                                <option value="Manufacture">Manufacture</option>
+                                <option value="Stats">Stats</option>
+                            </select> 
+                           
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Letter Assigned To:</label>
+            
+                            <input type="text" name="Letter_Assigned" class="form-control" value="{{Component.l_assign}}" required >
+                        </div>
+            
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reply Reference:</label>
+                            <input type="text" name="reply" class="form-control" value="{{Component.reply}}" required >
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reply Date:</label>
+                            <input type="date" name="replydate" class="form-control" placeholder="Enter Reply date" value="{{Component.replydate}}" required >
+    
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class = "center">
+                <input type="submit" value="Submit" class="px-3 btn btn-primary" id = "submit-button"></div>
+
+            </form>
+        </div>
+        
+    </div>
+</div> 
+
+
+{% if error == "no" %}
+<script>
+    alert('Component added Successfully');
+    window.location = ('');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Something Went Wrong, Try Again...');
+</script>
+{% endif %}
+
+{%endblock%}

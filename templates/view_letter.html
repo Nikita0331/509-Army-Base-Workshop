@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Table Page</title>
+    <style>
+        body {
+            background-image: url('{% static "bg.jpg" %}');
+            background-size: cover;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <form action="#">
+            <label > Search by</label>
+            <label for="search_letter_no">Letter No:</label>
+            <input type="text" id="search_letter_no" name="search_letter_no">
+            <label > Date : </label>
+            <label for="search_from">From:</label>
+            <input type="date" id="search_from" name="search_from">
+            <label for="search_to">To:</label>
+            <input type="date" id="search_to" name="search_to">
+            <label for="search_unit">Unit:</label>
+            <input type="text" id="search_unit" name="search_unit">
+            <input type="submit" value="Submit">
+        </form>
+    </nav>
+    <table>
+        <tr>
+            <th>Letter_no</th>
+            <th>Signing_date</th>
+            <th>Receiving_date</th>
+            <th>Received_from</th>
+            <th>Subject</th>
+            <th>Unit_Assigned_to</th>
+            <th>Letter_assigned_to</th>
+            <th>MDs_remark</th>
+            <th>Gms_remark</th>
+            <th>Deputy_GMs_remark</th>
+            <th>Fms_remark</th>
+            <th>Reply_date</th>
+            <th>Reply_reference</th>
+            <th>Status</th>
+            <th>Edit</th>
+        </tr>
+        <!-- Add table data here -->
+    </table>
+</body>
+</html>
+

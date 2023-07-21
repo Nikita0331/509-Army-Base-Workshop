@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Letter Management System</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('{% static "bg.jpg" %}');
+        background-size: cover;
+      }
+      nav {
+        background-color: black;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      nav h1, nav h2 {
+        margin: 0;
+      }
+      .logo {
+        height: 50px;
+        margin-right: 20px;
+      }
+      .title-container {
+        display: flex;
+        align-items: center;
+      }
+      .text-container {
+        display: flex;
+        flex-direction: column;
+      }
+      .button-container {
+        display: flex;
+      }
+      button {
+        background-color: black;
+        border: 2px solid white;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+      
+      .form-container {
+          display:none; 
+          background-color:white; 
+          max-width:250px; 
+          margin:auto; 
+          padding:20px; 
+          border-radius:10px
+      }
+      
+      .form-container h2 {
+          text-align:center
+      }
+      
+      form {
+          display:flex; 
+          flex-direction:column; 
+          align-items:center
+      }
+      
+      form input[type="text"], form input[type="password"] {
+          width:100%
+      }
+      
+      form input[type="submit"] {
+          margin-top:20px
+      }
+      
+      main {
+          margin-top:20px
+      }
+
+    </style>
+    <script>
+    function showLoginForm(formId) {
+       document.getElementById(formId).style.display = "block";
+       document.getElementById("homeButton").style.display = "block";
+       document.getElementById("adminLoginButton").style.display = "none";
+       document.getElementById("userLoginButton").style.display = "none";
+    }
+
+    function validateCredentials(event) {
+       event.preventDefault();
+       var userId = document.getElementById("userId").value;
+       var password = document.getElementById("password").value;
+
+       if (userId === "username" && password === "password") {
+           location.href = "/home";
+       } else {
+           alert("Wrong credentials");
+       }
+    }
+    </script>
+  </head>
+  <body>
+    <nav>
+      <div class="title-container">
+        <img src="{% static "download.png" %}" alt="Army Logo" class="logo">
+          <div class="text-container">
+            <h2>509 Army Base Workshop</h2>
+            <h1>DAK Management System</h1>
+          </div>
+      </div>
+      <div class="button-container">
+        <button id="adminLoginButton" onclick="showLoginForm('adminLoginForm')">Admin Login</button>
+        <button id="userLoginButton" onclick="showLoginForm('userLoginForm')">User Login</button>
+        <button id="homeButton" onclick="location.href='{% url 'index' %}'" style="display:none">Home</button>
+      </div>
+    </nav>
+
+    <main>
+
+    <div id="adminLoginForm" class="form-container">
+       <h2>Admin Login</h2>
+       <form onsubmit="validateCredentials(event)">
+           <label for="userId">User ID:</label>
+           <input type="text" id="userId" name="userId" required>
+
+           <label for="password">Password:</label>
+           <input type="password" id="password" name="password" required>
+
+           <input type="submit" value="Login">
+           <a href="/newuser">Create account</a>
+       </form>
+
+    </div>
+
+    <div id="userLoginForm" class="form-container">
+       <h2>User Login</h2>
+       <form onsubmit="validateCredentials(event)">
+           <label for="userId">User ID:</label>
+           <input type="text" placeholder="Username" name = "username" required>
+
+           <label for="password">Password:</label>
+           <input type="password" placeholder="Password" name="password" required>
+
+           <input type=submit value=Login>
+       </form>
+    </div>
+
+    </main>
+
+  </body>
+</html>
