@@ -18,61 +18,61 @@
     <div class="card-body">
         <h5 class="p-2 text-success" style="border-bottom: 2px solid green">Add Letter</h5>
         <div class="container-fluid" style="background-color: lightgreen; padding-bottom: 1px;">
-            <form method="post" action ="{% url 'letter_info' %}" >
+            <form method="post" action ="/update_letter/{{Letter.letter_no}}" >
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label >Letter Number:</label>
-                            <input type="text" name="srNo" class="form-control" placeholder="Enter Letter Number"  required>
+                            <input type="text" name="srNo" value="{{Letter.letter_no}}" class="form-control"  readonly>
                         </div>
                     </div>
         <div class="col-sm-6">
                         <div class="form-group">
                             <label>Signing Date:</label>
-                            <input type="date" name="signdate" class="form-control" placeholder="Enter Signing date"  required >
+                            <input type="date" name="signdate" class="form-control" value="{{Letter.signing_date}}"  readonly >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Receiving date:</label>
-                            <input type="date" name="receivedate" class="form-control" placeholder="Enter Receiving date" required >
+                            <input type="date" name="receivedate" class="form-control" value="{{Letter.receiving_date}}" >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Received from:</label>
-                            <input type="text" name="receive_from" class="form-control"   required >
+                            <input type="text" name="receive_from" class="form-control" value="{{Letter.received_from}}" >
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Subject:</label>
-                            <input type="text" name="Subject" class="form-control" placeholder="Enter the Subject"  required >
+                            <input type="text" name="Subject" class="form-control" value="{{Letter.subject}}"  readonly >
                         </div>
                     </div>  
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>MD'S Remark:</label>
-                            <input type="text" name="MD" class="form-control" placeholder="Enter the MD'S Remark"  required >
+                            <input type="text" name="MD" class="form-control" value="{{Letter.mds_remark}}"  readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>GM(W)'S Remark:</label>
-                            <input type="text" name="GM" class="form-control" placeholder="Enter the GM(W)'S Remark"  required> 
+                            <input type="text" name="GM" class="form-control" value="{{Letter.gms_remark}}"  readonly> 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Deputy GM Remark:</label>
-                            <input type="text" name="Deputy_GM" class="form-control" placeholder="Enter the Dept. GM Remark"  required >   
+                            <input type="text" name="Deputy_GM" class="form-control" value="{{Letter.deputy_gms_remark}}"  readonly >   
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>FM'S Remark:</label>
-                            <input type="text" name="FM" class="form-control" placeholder="Enter the FM'S Remark"  required >
+                            <input type="text" name="FM" class="form-control" value="{{Letter.fms_remark}}" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -94,38 +94,34 @@
                         <div class="form-group">
                             <label>Letter Assigned To:</label>
             
-                            <input type="text" name="Letter_Assigned" class="form-control"  required >
+                            <input type="text" name="Letter_Assigned" class="form-control" value="{{Letter.letter_assigned_to}}"  readonly >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Reply Reference:</label>
-                            <input type="text" name="reply" class="form-control" required >
+                            <input type="text" name="reply" class="form-control" value="{{Letter.reply_reference}}" >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Reply Date:</label>
-                            <input type="date" name="replydate" class="form-control" placeholder="Enter Reply date"  required >
+                            <input type="date" name="replydate" class="form-control" value="{{Letter.reply_date}}" >
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class = "center">
-                <input type="submit" value="Submit" class="px-3 btn btn-primary" id = "submit-button"></div>
+                <input type="submit" value="Update" class="px-3 btn btn-primary" id = "submit-button">
+            </div>
+                {% if messages %}
+                {% for updateletter in messages%}
+                <h3 style="color:green;">{{updateletter}}</h3>
+                {% endfor %}
+                {% endif %}
+                {% endblock %}
+                
             </form>
         </div>
     </div>
 </div> 
-{% if error == "no" %}
-<script>
-    alert('Component added Successfully');
-    window.location = ('');
-</script>
-{% endif %}
-{% if error == "yes" %}
-<script>
-    alert('Something Went Wrong, Try Again...');
-</script>
-{% endif %}
-{%endblock%}

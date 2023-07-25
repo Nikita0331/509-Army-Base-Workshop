@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Letter Management System</title>
+    <title>Letter Management System - Login</title>
     <style>
       body {
         margin: 0;
@@ -49,21 +49,63 @@
         margin: 0 10px;
         cursor: pointer;
       }
+      .login-container {
+        background-color: white;
+        max-width: 250px;
+        margin: 40px auto;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .login-container h2 {
+          text-align:center
+      }
+      form {
+          display:flex; 
+          flex-direction:column; 
+          align-items:center
+    }
+    form .create-account-link {
+          text-align:right
+    }
     </style>
   </head>
   <body>
     <nav>
       <div class="title-container">
-        <img src="{% static "download.png" %}" alt="Army Logo" class="logo">
+          <img src="{% static "download.png" %}" alt="Army Logo" class="logo">
           <div class="text-container">
             <h2>509 Army Base Workshop</h2>
             <h1>DAK Management System</h1>
           </div>
       </div>
       <div class="button-container">
-        <button onclick="location.href='{% url 'adminlogin' %}'">Admin Login</button>
-        <button onclick="location.href='{% url 'userlogin' %}'">User Login</button>
+        <button onclick="location.href='{% url 'index' %}'">Home</button>
       </div>
     </nav>
+    <div class="login-container">
+      <h2>User Login</h2>
+      
+      <form action="" method="post">
+          {% csrf_token %} 
+          <label for="userid">User ID:</label>
+          <input type="text" placeholder="Username" name = "username" required><br>
+          <label for="password">Password:</label>
+          <input type="password" placeholder="Password" name="password" required><br>
+          <input type="submit" value="Login">
+          
+      </form> 
+    </div>
   </body>
 </html>
+{% if error == "no" %}
+<script>
+    alert('Login Successful');
+    window.location = ('{% url "letter_info" %}');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Invalid Credentials');
+</script>
+{% endif %}

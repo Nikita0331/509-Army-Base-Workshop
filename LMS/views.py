@@ -2,6 +2,9 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
+from .models import Letter
+from .forms import updateforms
+from .forms import UpdateLetterForm
 
 # Create your views here.
 def index(request):
@@ -61,14 +64,78 @@ def adminlogin(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect('home')
+            error='no'
         else:
-            return redirect('adminlogin')
+            error='yes' 
 
     return render(request, 'adminlogin.html',locals())
+def view_letter(request):
+    letters=Letter.objects.all()
+    return render(request, 'view_letter.html',locals())
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 def letter_info(request):
+    if request.method=="POST":
+        letter_no=request.POST.get('srNo')
+        signing_date=request.POST.get('signdate')
+        receiving_date=request.POST.get('receivedate')
+        received_from=request.POST.get('receive_from')
+        subject=request.POST.get('Subject')
+        md=request.POST.get('MD')
+        gm=request.POST.get('GM')
+        dgm=request.POST.get('Deputy_GM')
+        fm=request.POST.get('FM')
+        unit=request.POST.get('UNIT')
+        assigned=request.POST.get('Letter_Assigned')
+        reply_ref=request.POST.get('reply')
+        reply_date=request.POST.get('replydate')
+        lt=Letter(letter_no=letter_no,signing_date=signing_date,receiving_date=receiving_date,
+                  received_from=received_from,subject=subject,unit_assigned_to=unit,letter_assigned_to=assigned,
+                  mds_remark=md,gms_remark=gm,deputy_gms_remark=dgm,fms_remark=fm,reply_date=reply_date,
+                  reply_reference=reply_ref
+                  )
+        lt.save()
     return render(request, 'letter_info.html')
 
-def view_letter(request):
-    return render(request, 'view_letter.html')
+
+def delete_letter(request,pid):
+    if not request.user.is_authenticated:
+        return redirect('admin_login')
+    
+    l = Letter.objects.get(letter_no=pid)
+    l.delete() 
+
+    return redirect('view_letter')
+
+def edit_letter(request, pid):
+    if not request.user.is_authenticated:
+        return redirect('admin_login')
+    l = Letter.objects.get(letter_no=pid)
+    return render(request,"edit_letter.html",{"Letter":l})
+
+def update_letter(request, pid):
+    if not request.user.is_authenticated:
+        return redirect('admin_login')
+
+    updatel = Letter.objects.get(letter_no=pid)
+
+    if request.method == 'POST':
+        form = UpdateLetterForm(request.POST, instance=updatel)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Letter Updated Successfully")
+            return redirect('view_letter', pid=pid)  # Redirect to the letter detail page
+    else:
+        form = UpdateLetterForm(instance=updatel)
+
+    return render(request, "view_letter.html", {"form": form, "Letter": updatel})
+
+
+
+
+
+
+
+

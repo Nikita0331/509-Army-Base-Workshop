@@ -1,24 +1,123 @@
-<!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>View Table Page</title>
+    <style>
+        body {
+            background-image: url('{% static "bg.jpg" %}');
+            background-size: cover;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid black;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        nav {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+        }
+        .table-container {
+          margin-top: 60px;
+          overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello {{request.user}}</h1>
-    
-    <form method="post" action="/upload/" enctype="multipart/form-data">
-        {% csrf_token %}
-        upload your profile pic<br><input type="file" name="pic" accept="Image/*"><br>
-        <button type="submit">upload</button>
-    </form>
-    <a href="/userlogin">Sign Out</a>
+    <nav>
+        <form action="#">
+            <label > Search by</label>
+            <label for="search_letter_no">Letter No:</label>
+            <input type="text" id="search_letter_no" name="search_letter_no">
+            <label > Date : </label>
+            <label for="search_from">From:</label>
+            <input type="date" id="search_from" name="search_from">
+            <label for="search_to">To:</label>
+            <input type="date" id="search_to" name="search_to">
+            <label for="search_unit">Unit:</label>
+            <input type="text" id="search_unit" name="search_unit">
+            <input type="submit" value="Submit">
+        </form>
+        <div>
+          <button onclick="#">Export to Excel</button>
+          <button onclick="#">Dashboard</button>
+        </div>
+    </nav>
 
-    {% for p in img %}
-    <img src="/media/{{p.pic}}"><br>
-    {% endfor %}
+    <div class="table-container">
+      <table>
+          <tr>
+              <th>Letter_no</th>
+              <th>Signing_date</th>
+              <th>Receiving_date</th>
+              <th>Received_from</th>
+              <th>Subject</th>
+              <th>Unit_Assigned_to</th>
+              <th>Letter_assigned_to</th>
+              <th>MDs_remark</th>
+              <th>Gms_remark</th>
+              <th>Deputy_GMs_remark</th>
+              <th>Fms_remark</th>
+              <th>Reply_date</th>
+              <th>Reply_reference</th>
+              <th>Status</th>
+              <th>Edit</th>
+          </tr>
+
+          <!-- Add table data here -->
+          
+          <!-- Example row with random data -->
+          <tr><td>12345</td><td>2022-01-01</td><td>2022-01-02</td><td>John Doe</td><td>Lorem ipsum dolor sit amet.</td><td>Unit A</td><td>Jane Doe</td><td>Lorem ipsum dolor sit amet.</td><td>Lorem ipsum dolor sit amet.</td><td>Lorem ipsum dolor sit amet.</td><td>Lorem ipsum dolor sit amet.</td><td>2022-01-03</td><td>Lorem ipsum dolor sit amet.</td><td>In Progress</td><td>Edit</td></tr>
+
+      </table>
+
+      <!-- Add JavaScript code here to populate the table with data -->
+
+    </div>
+
+    <!-- Adjust the width of the navigation bar to match the width of the table -->
+    <script>
+
+      // Get the width of the table
+      var tableWidth = document.querySelector('table').offsetWidth;
+
+      // Set the width of the navigation bar to match the width of the table
+      document.querySelector('nav').style.width = tableWidth + 'px';
+
+    </script>
+
 </body>
+
+<script>
+
+// Add JavaScript code here to populate the table with data
+
+</script>
+
 </html>
+

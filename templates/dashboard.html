@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block main %}
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+    .p-2{
+        color:green;
+    }
+</style>
+<div class="card shadow m-3">
+    <div class="card-body">
+        <h5 class="p-2 text-success" style="border-bottom: 2px solid green">Dashboard</h5>
+        <div class="container-fluid" style="background-color: lightgreen; padding-bottom: 1px;">
+            <!-- Replace the form with a table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Letter Type</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows to the table for each letter type and its count -->
+                    <tr>
+                        <td>Received</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>Signed</td>
+                        <td>20</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div> 
+{%endblock%}

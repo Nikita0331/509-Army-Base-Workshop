@@ -27,9 +27,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("home",views.home,name="home"),
     path('', views.index,name="index"),
+    path('index', views.index,name="index"),
     path("adminlogin",views.adminlogin,name="adminlogin"),
     path("newuser" ,views.newuser,name="newuser"),
     path("userlogin",views.userlogin,name="userlogin"),
     path('letter_info/', views.letter_info, name = "letter_info"),
     path('view_letter/', views.view_letter, name = "view_letter"),
+    path('dashboard/', views.dashboard, name = "dashboard"),
+    path('delete_letter/<int:pid>',views.delete_letter, name='delete_letter'),
+    path('edit_letter/<int:pid>',views.edit_letter, name='edit_letter'),
+    path('update_letter/<int:pid>',views.update_letter, name='update_letter')
 ]
