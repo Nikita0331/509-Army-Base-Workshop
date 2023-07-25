@@ -26,4 +26,4 @@ Don't forget to leave a star ⭐️
 
 
 ##
-Made with ❤ by Nikita ([@Nikita0331]([https://github.com/Nikita0331]))
+Made with ❤ by Nikita ([@Nikita0331](https://github.com/Nikita0331))
