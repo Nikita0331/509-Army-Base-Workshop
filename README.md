@@ -1,5 +1,5 @@
 #FCRC PROJECT
-# DAK Management System
+# DAK System
 
 It's a real time project to manages DAK(Letter) in Army Base Workshops.
 We implement thi project for 509 Army workshop Agra during are training period.
