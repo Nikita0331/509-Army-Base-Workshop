@@ -7,6 +7,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+    <!-- Import SheetJS library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
    
     <style>
         table {
@@ -41,7 +43,7 @@
           z-index:1;
         }
         .chang{
-          margin-left: 700px;
+          margin-left: 650px;
         }
 
         .search-container {
@@ -90,7 +92,12 @@
             background-color: #dc3545;
             border-color: #dc3545;
         }
-    
+        @media only screen and (max-width: 600px) {
+            table {
+                font-size: 12px; /* Decrease font size for smaller screens */
+            }
+        }
+        
     </style>
     <script>
         function downloadExcel() {
@@ -98,11 +105,11 @@
             var table = document.getElementById('letterTable');
             var tableData = [];
             var headers = [];
-    
+
             for (var i = 0; i < table.rows.length; i++) {
                 var rowData = [];
                 var row = table.rows[i];
-    
+
                 if (i === 0) {
                     // Get table headers
                     for (var j = 0; j < row.cells.length; j++) {
@@ -116,26 +123,25 @@
                     tableData.push(rowData);
                 }
             }
-    
+
             // Create a workbook and worksheet
             var workbook = XLSX.utils.book_new();
             var worksheet = XLSX.utils.aoa_to_sheet([headers, ...tableData]);
-    
+
             // Add the worksheet to the workbook
             XLSX.utils.book_append_sheet(workbook, worksheet, 'Letter_Data');
-    
+
             // Convert workbook to binary and create a Blob
             var wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
             var blob = new Blob([wbout], { type: 'application/octet-stream' });
-    
+
             // Create a download link and trigger the download
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
             a.download = 'Letter_Data.xlsx';
-            document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Clean up the URL
         }
     </script>
 </head>
@@ -145,8 +151,9 @@
     </div>
     <nav>
         <div class="search-container">
-            <form action="#">
-                <label>Date: </label>
+            <form method="GET" action="{% url 'view_letter' %}">
+                {% csrf_token %}
+                <label>Receiving Date: </label>
                 <label for="search_from">From:</label>
                 <input type="date" id="search_from" name="search_from">
                 <label for="search_to">To:</label>
@@ -155,7 +162,7 @@
             </form>
         </div>
         <div class="chang">
-            <button onclick="downloadExcel()">Excel</button>
+            <button  onclick="downloadExcel()">Excel</button>
             <button onclick="location.href='{% url 'dashboard' %}'">Dashboard</button>
         </div>
     </nav>

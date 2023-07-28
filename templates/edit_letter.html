@@ -18,7 +18,7 @@
     <div class="card-body">
         <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange">Update Letter</h5>
         <div class="container-fluid" style="background-color: danger; padding-bottom: 1px;">
-            <form method="post" action ="/update_letter/{{Letter.letter_no}}" >
+            <form method="post" action="{% url 'update_letter' pid=Letter.srno %}">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col-sm-6">

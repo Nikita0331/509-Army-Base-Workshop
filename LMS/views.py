@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .models import Letter
-
+from datetime import datetime
 from .forms import LetterForm
-
+from django.shortcuts import get_object_or_404
 # Create your views here.
 def index(request):
     context={
@@ -70,11 +70,38 @@ def adminlogin(request):
 
     return render(request, 'adminlogin.html',locals())
 def view_letter(request):
-    letters=Letter.objects.all()
-    return render(request, 'view_letter.html',locals())
+    if request.method == "GET":
+        from_date_str = request.GET.get('search_from')
+        to_date_str = request.GET.get('search_to')
+        queryset = Letter.objects.all()
+
+        if from_date_str:
+            try:
+                from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date()
+                queryset = queryset.filter(receiving_date__gte=from_date)
+            except ValueError:
+                pass
+
+        if to_date_str:
+            try:
+                to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date()
+                queryset = queryset.filter(receiving_date__lte=to_date)
+            except ValueError:
+                pass
+
+        return render(request, 'view_letter.html', {"letters": queryset})
+
+    return render(request, 'view_letter.html', {"letters": Letter.objects.all()})
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    letter_count = Letter.objects.count()
+
+    context = {
+        'letter_count': letter_count,
+        
+        # Add more variables for other types of letters if needed
+    }
+    return render(request, 'dashboard.html',context)
 
 def view_user(request):
     return render(request, 'view_user.html')
@@ -118,18 +145,50 @@ def edit_letter(request, pid):
     l = Letter.objects.get(srno=pid)
     return render(request,"edit_letter.html",{"Letter":l})
 
-
-
 def update_letter(request, pid):
     if not request.user.is_authenticated:
         return redirect('admin_login')
-    updatel = Letter.objects.get(letter_no=pid)
+    
+    updatel = Letter.objects.get(srno=pid)
     form = LetterForm(request.POST, instance=updatel)
+
     if form.is_valid():
         form.save()
-        updatel.save()
         messages.success(request, "Letter Updated Successfully")
-        return render(request, "edit_letter.html", {"Letter": updatel})
+        return redirect('edit_letter', pid=pid)  # Redirect back to the edit page
     else:
-        return HttpResponse("Error: The form is not valid.")
+        return redirect('view_letter')  # Redirect to a different view/page on form validation failure
 
+
+
+def search(request):
+    if request.method == "GET":
+        letter_no = request.GET.get('Letter_no')
+        unit_assigned_to = request.GET.get('Unit_Assigned_to')
+        from_date_str = request.GET.get('search_from')
+        to_date_str = request.GET.get('search_to')
+
+        queryset = Letter.objects.all()
+
+        if letter_no:
+            queryset = queryset.filter(letter_no__icontains=letter_no)
+
+        if unit_assigned_to: 
+            queryset = queryset.filter(unit_assigned_to__icontains=unit_assigned_to)
+
+
+        if from_date_str:
+            try:
+                from_date = datetime.strptime(from_date_str, '%Y-%m-%d').date()
+                queryset = queryset.filter(signing_date__gte=from_date)
+            except ValueError:
+                pass
+
+        if to_date_str:
+            try:
+                to_date = datetime.strptime(to_date_str, '%Y-%m-%d').date()
+                queryset = queryset.filter(signing_date__lte=to_date)
+            except ValueError:
+                pass
+
+        return render(request, 'search.html', {"Letter": queryset})

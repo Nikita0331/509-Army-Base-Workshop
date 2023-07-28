@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Table</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script>
+    <!-- Import SheetJS library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+   
+    <style>
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+      th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid black;
+      }
+      tr:nth-child(even) {
+          background-color: #f2f2f2;
+      }
+      th {
+          background-color: #4CAF50;
+          color: white;
+      }
+      .table-container {
+        overflow-y: auto;
+        
+        margin-top: 60px;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        display: flex;
+       
+        align-items: center;
+        padding: 15px;
+        background-color: black;
+        color: white;
+      }
+      .chang{
+        margin-left: 150px;
+      }
+      .search-container {
+        display: flex;
+        align-items: center;
+        margin-left: 1px; 
+        margin-right: 1px;
+      }
+      .search-container input[type="text"] {
+        padding: 2px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border: none;
+      }
+      .search-container input[type="date"] {
+        padding: 2px;
+        margin-right: 10px;
+        border-radius: 4px;
+        border: none;
+      }
+  </style>
+  <script>
+   
+</script>
+</head>
+<body>
+  <nav>
+    <div class="search-container">
+    <form method="GET" action="{% url 'search' %}">
+        {% csrf_token %}
+        <label for="search_letter_no">Letter No:</label>
+        <input type="text" id="search_letter_no" name="Letter_no">
+        <label for="signing date">Signing Date:
+        <label for="search_from">From:</label>
+        <input type="date" id="search_from" name="search_from" >
+
+        <label for="search_to">To:</label>
+        <input type="date" id="search_to" name="search_to">
+
+        <label for="search_unit">Unit:</label>
+        <input type="text" id="search_unit" name="Unit_Assigned_to">
+
+        <input type="submit" value="Search">
+    </form>
+  </div>
+  <div class="chang">
+    <button id="excelButton">Excel</button>
+    <button onclick="location.href='{% url 'dashboard' %}'">Dashboard</button>
+  </div>
+</nav>
+    <div class="table-container">
+        <table id="letterTable">
+            <thead>
+                <tr>
+                    <th>Letter No</th>
+                    <th>Signing Date</th>
+                    <th>Receiving Date</th>
+                    <th>Received From</th>
+                    <th>Subject</th>
+                    <th>Unit Assigned to</th> 
+                    <th>Letter_assigned_to</th>
+                    <th>MDs_remark</th>
+                    <th>Gms_remark</th>
+                    <th>Deputy_GMs_remark</th>
+                    <th>Fms_remark</th>
+                    <th>Reply_date</th>
+                    <th>Reply_reference</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the search results to display data -->
+                {% for letter in Letter %}
+                <tr>
+                    <td>{{ letter.letter_no }}</td>
+                    <td>{{ letter.signing_date }}</td>
+                    <td>{{ letter.receiving_date }}</td>
+                    <td>{{ letter.received_from }}</td>
+                    <td>{{ letter.subject }}</td>
+                    <td>{{ letter.unit_assigned_to }}</td> 
+                    <td>{{letter.letter_assigned_to}}</td>
+                    <td>{{letter.mds_remark}}</td>
+                    <td>{{letter.gms_remark}}</td>
+                    <td>{{letter.deputy_gms_remark}}</td>
+                    <td>{{letter.fms_remark}}</td>
+                    <td>{{letter.reply_date}}</td>
+                    <td>{{letter.reply_reference}}</td>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+
+      // Get the width of the table
+      var tableWidth = document.querySelector('table').offsetWidth;
+
+      // Set the width of the navigation bar to match the width of the table
+      document.querySelector('nav').style.width = tableWidth + 'px';
+
+    </script>
+    <script>
+        // Get the width of the table
+        var tableWidth = document.querySelector('table').offsetWidth;
+
+        // Set the width of the navigation bar to match the width of the table
+        document.querySelector('nav').style.width = tableWidth + 'px';
+
+        // Function to download the table as Excel
+        function downloadExcel() {
+            var table = document.getElementById('letterTable');
+            var tableData = [];
+            var headers = [];
+
+            // Get table headers
+            for (var i = 0; i < table.rows[0].cells.length; i++) {
+                headers.push(table.rows[0].cells[i].innerText);
+            }
+
+            // Get table data rows
+            for (var i = 1; i < table.rows.length; i++) {
+                var rowData = [];
+                var row = table.rows[i];
+                for (var j = 0; j < row.cells.length; j++) {
+                    rowData.push(row.cells[j].innerText);
+                }
+                tableData.push(rowData);
+            }
+
+            // Create a workbook and worksheet
+            var workbook = XLSX.utils.book_new();
+            var worksheet = XLSX.utils.aoa_to_sheet([headers, ...tableData]);
+
+            // Add the worksheet to the workbook
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Letter_Data');
+
+            // Convert workbook to binary and create a Blob
+            var wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            var blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+            // Create a download link and trigger the download
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Letter_Data.xlsx';
+            a.click();
+            URL.revokeObjectURL(url); // Clean up the URL
+        }
+
+        // Attach the downloadExcel function to the Excel button
+        var excelButton = document.getElementById('excelButton');
+        excelButton.addEventListener('click', downloadExcel);
+    </script>
+</body>
+</html>

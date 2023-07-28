@@ -37,5 +37,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name = "dashboard"),
     path('delete_letter/<int:pid>',views.delete_letter, name='delete_letter'),
     path('edit_letter/<int:pid>',views.edit_letter, name='edit_letter'),
-    path('update_letter/<int:pid>',views.update_letter, name='update_letter')
+    path('update_letter/<int:pid>',views.update_letter, name='update_letter'),
+    path('search/',views.search,name="search"),
 ]
