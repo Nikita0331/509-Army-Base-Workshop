@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .models import Letter
-from .forms import updateforms
-from .forms import UpdateLetterForm
+
+from .forms import LetterForm
 
 # Create your views here.
 def index(request):
@@ -76,6 +76,9 @@ def view_letter(request):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+def view_user(request):
+    return render(request, 'view_user.html')
+
 def letter_info(request):
     if request.method=="POST":
         letter_no=request.POST.get('srNo')
@@ -104,7 +107,7 @@ def delete_letter(request,pid):
     if not request.user.is_authenticated:
         return redirect('admin_login')
     
-    l = Letter.objects.get(letter_no=pid)
+    l = Letter.objects.get(srno=pid)
     l.delete() 
 
     return redirect('view_letter')
@@ -112,30 +115,21 @@ def delete_letter(request,pid):
 def edit_letter(request, pid):
     if not request.user.is_authenticated:
         return redirect('admin_login')
-    l = Letter.objects.get(letter_no=pid)
+    l = Letter.objects.get(srno=pid)
     return render(request,"edit_letter.html",{"Letter":l})
+
+
 
 def update_letter(request, pid):
     if not request.user.is_authenticated:
         return redirect('admin_login')
-
     updatel = Letter.objects.get(letter_no=pid)
-
-    if request.method == 'POST':
-        form = UpdateLetterForm(request.POST, instance=updatel)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Letter Updated Successfully")
-            return redirect('view_letter', pid=pid)  # Redirect to the letter detail page
+    form = LetterForm(request.POST, instance=updatel)
+    if form.is_valid():
+        form.save()
+        updatel.save()
+        messages.success(request, "Letter Updated Successfully")
+        return render(request, "edit_letter.html", {"Letter": updatel})
     else:
-        form = UpdateLetterForm(instance=updatel)
-
-    return render(request, "view_letter.html", {"form": form, "Letter": updatel})
-
-
-
-
-
-
-
+        return HttpResponse("Error: The form is not valid.")
 

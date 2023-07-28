@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Letter',
             fields=[
-                
-                ('letter_no', models.IntegerField(db_column='Letter_no',primary_key=True)),
+                ('srno', models.IntegerField(db_column='Letter_no',primary_key=True)),
+                ('letter_no', models.CharField(db_column='Letter_no',max_length=255)),
                 ('signing_date', models.DateField(db_column='Signing_date')),
                 ('receiving_date', models.DateField(blank=True, db_column='Receiving_date', null=True)),
                 ('received_from', models.CharField(blank=True, db_column='Received_from', max_length=255, null=True)),

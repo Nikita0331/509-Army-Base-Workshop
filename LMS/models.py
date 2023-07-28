@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Letter(models.Model):
-    letter_no = models.IntegerField(db_column='Letter_no', primary_key=True)  # Field name made lowercase.
-    signing_date = models.DateField(db_column='Signing_date')  # Field name made lowercase.
+    srno = models.IntegerField(db_column='srno',primary_key=True)
+    letter_no = models.CharField(db_column='Letter_no',max_length=255)  # Field name made lowercase.
+    signing_date = models.DateField(db_column='Signing_date',)  # Field name made lowercase.
     receiving_date = models.DateField(db_column='Receiving_date', blank=True, null=True)  # Field name made lowercase.
     received_from = models.CharField(db_column='Received_from', max_length=255, blank=True, null=True)  # Field name made lowercase.
     subject = models.CharField(db_column='Subject', max_length=255, blank=True, null=True)  # Field name made lowercase.

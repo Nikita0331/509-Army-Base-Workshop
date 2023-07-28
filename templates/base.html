@@ -14,8 +14,7 @@
             
             .list-group-item{
                 padding: 8px !important;
-                background-color : lightgreen;
-                color : black;
+                background-color:#FEEBEE;
             }
         </style>
         <script src = "https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -54,21 +53,21 @@
                         <img src="{% static 'user.png' %}" width="100" height="100" class="img-thumbnail rounded-circle my-4">
                     </center>
                     <div class="list-group">
-                        <a href="/dashboard" class="list-group-item list-group-item-success list-group-item-action ">Dashboard</a>
-                        <a href="{% url 'letter_info' %}" class="list-group-item list-group-item-success list-group-item-action">Add Letters</a>
+                        <a href="/dashboard" class="list-group-item list-group-item-danger list-group-item-action ">Dashboard</a>
+                        <a href="{% url 'letter_info' %}" class="list-group-item list-group-item-danger list-group-item-action">Add Letters</a>
                         {% comment %} <a href="" class="list-group-item list-group-item-warning list-group-item-action">Update Letter</a>   {% endcomment %}
-                        <a href="/view_letter" class="list-group-item list-group-item-success list-group-item-action">View Letter</a>
-                        <a href="" class="list-group-item list-group-item-success list-group-item-action">User Log</a>
-                        <a href="" class="list-group-item list-group-item-success list-group-item-action">View User</a>
+                        <a href="/view_letter" class="list-group-item list-group-item-danger list-group-item-action">View Letter</a>
+                        <a href="" class="list-group-item list-group-item-danger list-group-item-action">User Log</a>
+                        <a href="/view_user" class="list-group-item list-group-item-danger list-group-item-action">View User</a>
                         {% comment %} <a href="" class="list-group-item list-group-item-warning list-group-item-action">User Log</a>
                         <a href="" class="list-group-item list-group-item-warning list-group-item-action">View User</a> {% endcomment %}
-                        <a href="/newuser" class="list-group-item list-group-item-success list-group-item-action">Create User</a>
-                        <a href="/index" class="list-group-item list-group-item-success list-group-item-action">Log Out</a>
+                        <a href="/newuser" class="list-group-item list-group-item-danger list-group-item-action">Create User</a>
+                        <a href="/index" class="list-group-item list-group-item-danger list-group-item-action">Log Out</a>
                     </div>
                 </div>
                 <div class="col-sm-10 p-0">
                     <div class="container-fluid p-2">
-                        <h5 class="text-center p-3 font-weight-bold" style="border-bottom : 2px solid green; border-top : 2px solid green">DAK MANAGEMENT SYSTEM</h5>
+                        <h5 class="text-center p-3 font-weight-bold" style="border-bottom : 2px solid red; border-top : 2px solid red; color:black">DAK MANAGEMENT SYSTEM</h5>
 
                         <div class="card shadow" style="min-height: 90vh">
                             <div class="card-body">

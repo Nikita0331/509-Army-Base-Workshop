@@ -10,14 +10,14 @@
         color:green;
     }
     .form-row {
-        color: black;
+        color: green;
     }
 
 </style>
 <div class="card shadow m-3">
     <div class="card-body">
-        <h5 class="p-2 text-success" style="border-bottom: 2px solid green">Add Letter</h5>
-        <div class="container-fluid" style="background-color: lightgreen; padding-bottom: 1px;">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange">Add Letter</h5>
+        <div class="container-fluid" style="background-color: danger; padding-bottom: 1px;">
             <form method="post" action ="{% url 'letter_info' %}" >
                 {% csrf_token %}
                 <div class="form-row">
@@ -84,12 +84,13 @@
                                 <option value="Progress">PROG</option>
                                 <option value="Manufacture">MFR</option>
                                 <option value="Stats">STATS</option>
-                                <option value="None">OTHERS</option>
+                                <option value="UNIT">OTHERS</option>
                             </select> 
                             <!-- Add the input field for custom value here -->
-                            <input type="text" id="customValue" class="form-control" placeholder="Enter Other section" style="display: none;">
+                            <input type="text" id="customValue" class="form-control" name="UNIT"  placeholder="Enter Other section" style="display: none;">
                         </div>
                     </div>
+
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Letter Assigned To:</label>
@@ -117,15 +118,24 @@
         </div>
     </div>
 </div> 
-{% if error == "no" %}
 <script>
-    alert('Component added Successfully');
-    window.location = ('');
-</script>
-{% endif %}
-{% if error == "yes" %}
-<script>
-    alert('Something Went Wrong, Try Again...');
-</script>
-{% endif %}
+    // Listen for changes in the selected option of the drop-down menu
+    // Get references to the select and input elements
+const selectElement = document.querySelector('select[name="UNIT"]');
+const inputElement = document.querySelector('input[name="UNIT"]');
+
+// Add an event listener to the select element to listen for changes
+selectElement.addEventListener('change', (event) => {
+  // Check if the selected option is "OTHERS"
+  if (event.target.value === 'UNIT') {
+    // Show the input element
+    inputElement.style.display = 'block';
+  } else {
+    // Hide the input element
+    inputElement.style.display = 'none';
+  }
+});
+
+    </script>
+ 
 {%endblock%}

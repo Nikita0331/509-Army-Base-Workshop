@@ -33,6 +33,7 @@ urlpatterns = [
     path("userlogin",views.userlogin,name="userlogin"),
     path('letter_info/', views.letter_info, name = "letter_info"),
     path('view_letter/', views.view_letter, name = "view_letter"),
+    path('view_user/', views.view_user, name = "view_user"),
     path('dashboard/', views.dashboard, name = "dashboard"),
     path('delete_letter/<int:pid>',views.delete_letter, name='delete_letter'),
     path('edit_letter/<int:pid>',views.edit_letter, name='edit_letter'),

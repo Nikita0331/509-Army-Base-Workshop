@@ -10,14 +10,14 @@
         color:green;
     }
     .form-row {
-        color: black;
+        color: green;
     }
 
 </style>
 <div class="card shadow m-3">
     <div class="card-body">
-        <h5 class="p-2 text-success" style="border-bottom: 2px solid green">Add Letter</h5>
-        <div class="container-fluid" style="background-color: lightgreen; padding-bottom: 1px;">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange">Update Letter</h5>
+        <div class="container-fluid" style="background-color: danger; padding-bottom: 1px;">
             <form method="post" action ="/update_letter/{{Letter.letter_no}}" >
                 {% csrf_token %}
                 <div class="form-row">
@@ -30,7 +30,7 @@
         <div class="col-sm-6">
                         <div class="form-group">
                             <label>Signing Date:</label>
-                            <input type="date" name="signdate" class="form-control" value="{{Letter.signing_date}}"  readonly >
+                            <input type="date" name="signdate" value="{{Letter.signing_date}}" class="form-control"  readonly >
                         </div>
                     </div>
                     <div class="col-sm-6">
