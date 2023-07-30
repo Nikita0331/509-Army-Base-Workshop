@@ -78,7 +78,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Section Assigned To:</label>
-                            <select name="UNIT" class="form-control">
+                            <select name="select_UNIT" class="form-control">
                                 <option value="None">--Select--</option>
                                 <option value="PLG">PLG</option>
                                 <option value="Progress">PROG</option>
@@ -87,7 +87,7 @@
                                 <option value="UNIT">OTHERS</option>
                             </select> 
                             <!-- Add the input field for custom value here -->
-                            <input type="text" id="customValue" class="form-control" name="UNIT"  placeholder="Enter Other section" style="display: none;">
+                            <input type="text" id="customValue" class="form-control" name="unit_custom_value"  placeholder="Enter Other section" style="display: none;">
                         </div>
                     </div>
 
@@ -121,20 +121,20 @@
 <script>
     // Listen for changes in the selected option of the drop-down menu
     // Get references to the select and input elements
-const selectElement = document.querySelector('select[name="UNIT"]');
-const inputElement = document.querySelector('input[name="UNIT"]');
+    const selectElement = document.querySelector('select[name="select_UNIT"]');
+    const inputElement = document.querySelector('input[name="unit_custom_value"]');
 
-// Add an event listener to the select element to listen for changes
-selectElement.addEventListener('change', (event) => {
-  // Check if the selected option is "OTHERS"
-  if (event.target.value === 'UNIT') {
-    // Show the input element
-    inputElement.style.display = 'block';
-  } else {
-    // Hide the input element
-    inputElement.style.display = 'none';
-  }
-});
+    // Add an event listener to the select element to listen for changes
+    selectElement.addEventListener('change', (event) => {
+        // Check if the selected option is "OTHERS"
+        if (event.target.value === 'UNIT') {
+            // Show the input element
+            inputElement.style.display = 'block';
+        } else {
+            // Hide the input element
+            inputElement.style.display = 'none';
+        }
+    });
 
     </script>
  

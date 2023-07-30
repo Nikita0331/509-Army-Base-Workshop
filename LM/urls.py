@@ -39,4 +39,6 @@ urlpatterns = [
     path('edit_letter/<int:pid>',views.edit_letter, name='edit_letter'),
     path('update_letter/<int:pid>',views.update_letter, name='update_letter'),
     path('search/',views.search,name="search"),
+    path('user_dashboard/', views.user_dashboard, name = "user_dashboard"),
+
 ]
