@@ -81,15 +81,15 @@
                         <div class="form-group">
                             <label>Section Assigned To:</label>
                             <select name="UNIT" class="form-control" id="sectionSelect">
-                                <option value="None" >--Select--</option>
-                                <option value="PLG" >PLG</option>
-                                <option value="Progress" >PROG</option>
-                                <option value="Manufacture" >MFR</option>
-                                <option value="Stats">STATS</option>
-                                <option value="OTHERS" >OTHERS</option>
+                                <option value="None">--Select--</option>
+                                <option value="PLG" {% if l.unit_assigned_to == 'PLG' %}selected{% endif %}>PLG</option>
+                                <option value="Progress" {% if l.unit_assigned_to == 'Progress' %}selected{% endif %}>PROG</option>
+                                <option value="Manufacture" {% if l.unit_assigned_to == 'Manufacture' %}selected{% endif %}>MFR</option>
+                                <option value="Stats" {% if l.unit_assigned_to == 'Stats' %}selected{% endif %}>STATS</option>
+                                <option value="OTHERS" {% if l.unit_assigned_to == 'OTHERS' %}selected{% endif %}>OTHERS</option>
                             </select>
                             <!-- Add the input field for custom value here -->
-                            <input type="text" id="customValue" class="form-control" name="custom_unit" placeholder="Enter Other section" {% if l.unit_assigned_to != 'OTHERS' %}style="display: none;"{% endif %} value="{{ custom_unit }}">
+                            <input type="text" id="customValue" class="form-control" name="custom_unit" placeholder="Enter Other section" {% if l.unit_assigned_to != 'OTHERS' %}style="display: none;"{% endif %} value="{% if l.unit_assigned_to == 'OTHERS' %}{{ l.custom_unit }}{% endif %}">
                         </div>
                     </div>
                     <div class="col-sm-6">
