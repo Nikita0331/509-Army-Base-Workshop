@@ -1,11 +1,15 @@
 #509 ARMY BASE WORKSHOP PROJECT
 # ARMY LETTER HUB
 
-It's a real time project to record DAK(Letter) in Army Base Workshops.
+**It's a real time project to record DAK(Letter) in Army Base Workshops.**
 We implement this project for 509 Army workshop Agra during are training period.
 
 ->Developed a system for managing and organizing letters using HTML, CSS, JavaScript, Django, and MySQL.
+
+
 ->Implemented separate sections for admin and user, with different levels of access and functionality.
+
+
 ->Admins can perform CRUD operations on letters, including adding, deleting, and updating-> letters, as well as creating new users and deactivating
 user accounts.
 ->Users can view letters belonging to their section and edit replies.
