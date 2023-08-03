@@ -144,7 +144,7 @@
     <div class="action-container">
         <div class="view-option">
             <!-- View Option Content Here -->
-            <form method="GET" action="{% url 'search' %}">
+            <form method="GET" action="{% url 'search_user' %}">
                 {% csrf_token %}
                 <label for="search_letter_no">Letter No:</label>
                 <input type="text" id="search_letter_no" name="Letter_no" value="{{ request.GET.Letter_no }}">
