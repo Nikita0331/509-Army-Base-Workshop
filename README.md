@@ -1,8 +1,8 @@
 #FCRC PROJECT
-# DAK System
+# ARMY LETTER HUB
 
-It's a real time project to manages DAK(Letter) in Army Base Workshops.
-We implement thi project for 509 Army workshop Agra during are training period.
+It's a real time project to record DAK(Letter) in Army Base Workshops.
+We implement this project for 509 Army workshop Agra during are training period.
 
 ## Tech Stack
 
@@ -14,7 +14,7 @@ We implement thi project for 509 Army workshop Agra during are training period.
 
 ## Features
 
-- There are three types user admin, user and viewer they has different roles
+- There are two types user admin and user they has different roles
 
 
 ## Support++
