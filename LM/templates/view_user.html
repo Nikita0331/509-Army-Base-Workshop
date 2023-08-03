@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block main %}
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+    .colour {
+        color: green;
+    }
+</style>
+<div class="card shadow m-3">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange; text-align: center;">VIEW USER</h5>
+        <div class="container-fluid" style="background-color: danger; padding-bottom: 1px;">
+            <!-- Replace the form with a table -->
+            <table class="table table-striped">
+                <thead class="colour">
+                    <tr>
+                        <th>USER_ID</th>
+                        <th>UNIT</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.user_id }}</td>
+                        <td>{{ user.unit }}</td>
+                        <td>
+                            <select name="status" id="status-{{ user.user_id }}">
+                                <option value="active" {% if user.status == 'active' %}selected{% endif %}>Active</option>
+                                <option value="inactive" {% if user.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="button" onclick="changeStatus('{{ user.user_id }}')">Update Status</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeStatus(userId) {
+        {% comment %} console.log(`Changing status for user ID: ${userId} to ${status}`); {% endcomment %}
+        const statusSelect = document.getElementById(`status-${userId}`);
+        const status = statusSelect.value;
+        fetch(`/update_status/${userId}/${status}/`, { method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') } })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Status updated successfully.');
+                    window.location.reload();
+                } else {
+                    alert('Failed to update status. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating status.');
+            });
+    }
+
+    // Function to get the CSRF token for the POST request
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === name + '=') {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}
