@@ -1,5 +1,5 @@
 #509 ARMY BASE WORKSHOP PROJECT
-# <img src="https://5.imimg.com/data5/FL/JP/MY-5950771/karam-hi-dharam-brass-crust-army-logo-1000x1000.jpg" alt="c" width="40" height="40"/>ARMY LETTER HUB
+# <img src="https://5.imimg.com/data5/FL/JP/MY-5950771/karam-hi-dharam-brass-crust-army-logo-1000x1000.jpg"  width="40" height="40"/>ARMY LETTER HUB
 
 **It's a real time project to record DAK(Letter) in Army Base Workshops.**
 
