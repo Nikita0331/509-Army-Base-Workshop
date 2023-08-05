@@ -1,5 +1,5 @@
 #509 ARMY BASE WORKSHOP PROJECT
-# <img src="https://seeklogo.com/images/I/indian-army-logo-64F761626E-seeklogo.com.png" />ARMY LETTER HUB
+# <img src="https://seeklogo.com/images/I/indian-army-logo-64F761626E-seeklogo.com.png" width="40" height="40"/>ARMY LETTER HUB
 
 **It's a real time project to record DAK(Letter) in Army Base Workshops.**
 
